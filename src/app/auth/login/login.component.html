@@ -1,0 +1,83 @@
+<div class="wrapper" fxFlexFill fxLayout="row">
+  <div
+    fxFlex="60"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="50px"
+    fxFlex.xs="100"
+    fxLayoutGap.xs="15px"
+  >
+    <div class="full-logo-container">
+      <img src="/assets/hellotemp-fulllogo.png" />
+    </div>
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
+      <div fxLayout="row" fxFlex="100">
+        <mat-form-field class="wide-input" fxLayoutAlign="center center">
+          <input
+            data-cy="login-input"
+            matInput
+            placeholder="Email"
+            formControlName="email"
+          />
+          <mat-error
+            class="mat-caption mat-text-warn"
+            *ngIf="
+              form.controls['email'].hasError('email') &&
+              form.controls['email'].touched
+            "
+          >
+            <mat-icon>warning</mat-icon>
+            Please enter a valid email.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field class="wide-input" fxLayoutAlign="center center">
+          <input
+            data-cy="password-input"
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <mat-error
+            class="mat-caption mat-text-warn"
+            *ngIf="
+              form.controls['password'].hasError('required') &&
+              form.controls['password'].touched
+            "
+          >
+            <mat-icon>warning</mat-icon>
+            Please enter your password.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+    <button
+      data-cy="login-button"
+      mat-raised-button
+      color="primary"
+      (click)="signIn()"
+      class="btn-sign"
+    >
+      Sign in
+    </button>
+    <button mat-button color="primary" (click)="forgotPassword()">
+      Forgot your password?
+    </button>
+  </div>
+  <div
+    fxFlex="40"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="50px"
+    class="primary-background"
+    fxFlex.xs="100"
+    fxLayoutGap.xs="15px"
+  >
+    <h3 class="white login-title">Don't have an account?</h3>
+    <button class="btn-submit btn-sign btn-sign-invert" mat-stroked-button (click)="signup()">
+      Sign up
+    </button>
+  </div>
+</div>

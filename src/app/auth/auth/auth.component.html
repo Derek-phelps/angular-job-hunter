@@ -1,0 +1,40 @@
+<div class="wrapper" fxFlexFill fxLayout="row">
+  <div
+    fxFlex="60"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="50px"
+    fxFlex.xs="100"
+    fxLayoutGap.xs="15px"
+  >
+    <div class="full-logo-container">
+      <img src="/assets/hellotemp-fulllogo.png" />
+    </div>
+    <button
+      data-cy="login-button"
+      mat-raised-button
+      color="primary"
+      (click)="signIn()"
+      class="btn-sign"
+    >
+      Sign in
+    </button>
+<!--    <button mat-button color="primary" (click)="forgotPassword()">-->
+<!--      Forgot your password?-->
+<!--    </button>-->
+  </div>
+  <div
+    fxFlex="40"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="50px"
+    class="primary-background"
+    fxFlex.xs="100"
+    fxLayoutGap.xs="15px"
+  >
+    <h3 class="white login-title">Don't have an account?</h3>
+    <button class="btn-submit btn-sign btn-sign-invert" mat-stroked-button (click)="signUp()">
+      Sign up
+    </button>
+  </div>
+</div>

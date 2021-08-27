@@ -1,0 +1,35 @@
+<div class="container" fxLayout="column">
+  <ng-container *ngIf="interviewId; else noOffers">
+    <div *ngIf="loading; else content" fxFlexFill>
+        <hellotemp-loading  [fillContainer]="true"></hellotemp-loading>
+    </div>
+    <ng-template #content>
+        <hellotemp-offer-thread
+            fxFlexFill
+            fxLayoutAlign="center start"
+            [user]="user"
+            [company]="company"
+            [offers]="offers"
+            [interview]="interview"
+            [opportunity]="interview.opportunity"
+            [jobTitles]="jobTitles"
+            [message]="message"
+            [disabled]="disabled"
+            [candidateFee]="true"
+        >
+        </hellotemp-offer-thread>
+        <div fxLayout="row" fxFlex="1 1 auto"></div>
+        <div fxLayout="row" fxLayoutAlign="center space-around" class="app-padding offers-footer-actions">
+            <button mat-flat-button color="warn" (click)="decline()" [disabled]="disabled">Decline</button>
+            <button mat-flat-button class="grey-background" (click)="counter()" [disabled]="disabled">Counter</button>
+            <button mat-flat-button color="primary" (click)="accept()" [disabled]="disabled || disableAccepted">Accept</button>
+        </div>
+    </ng-template>
+  </ng-container>
+</div>
+
+<ng-template #noOffers>
+  <div fxFlexFill fxLayoutAlign="center center">
+    <h1>No Offer Selected</h1>
+  </div>
+</ng-template>

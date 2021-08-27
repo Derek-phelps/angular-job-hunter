@@ -1,0 +1,444 @@
+<div fxLayout="row" fxFlex="100" fxFill fxLayoutAlign="center center">
+  <ng-container *ngIf="!isLoading; else loading">
+    <div
+      [formGroup]="form"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      fxLayoutGap="30px"
+      fxFill
+      fxLayoutGap.xs="10px"
+    >
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutGap="10px"
+        fxLayoutAlign="start center"
+        fxLayout.xs="column"
+        fxLayout.lt-lg="row wrap"
+      >
+        <div fxLayout="column" class="width-100" fxFlex="33.33" fxFlex.xs="100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <input
+              required
+              matInput
+              placeholder="First Name"
+              formControlName="firstName"
+              (blur)="saveToState()"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['firstName'].hasError('required') &&
+                form.controls['firstName'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              First name required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" class="width-100" fxFlex="33.33" fxFlex.xs="100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <input
+              required
+              matInput
+              placeholder="Last Name"
+              formControlName="lastName"
+              (blur)="saveToState()"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['lastName'].hasError('required') &&
+                form.controls['lastName'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              Last name required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="33.33" fxFlex.xs="100" class="width-100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <input
+              required
+              matInput
+              placeholder="Cell"
+              formControlName="phoneNumber"
+              mask="000-000-0000"
+              (blur)="saveToState()"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['phoneNumber'].hasError('required') &&
+                form.controls['phoneNumber'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              Cell required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutGap="10px"
+        fxLayoutAlign="start center"
+        fxLayout.xs="column"
+        fxLayout.lt-lg="row wrap"
+      >
+        <div fxLayout="column" fxFlex="25" fxFlex.xs="100" class="width-100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <input
+              required
+              matInput
+              placeholder="Address"
+              formControlName="street1"
+              (blur)="saveToState()"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['street1'].hasError('required') &&
+                form.controls['street1'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              Address required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="25" fxFlex.xs="100" class="width-100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <input
+              required
+              matInput
+              placeholder="City"
+              formControlName="city"
+              (blur)="saveToState()"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['city'].hasError('required') &&
+                form.controls['city'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              City required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="12.5" fxFlex.xs="100" class="width-100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <mat-select placeholder="State" formControlName="state" required>
+              <mat-option
+                *ngFor="let state of AmericanStates"
+                [value]="state"
+                >{{ state }}</mat-option
+              >
+            </mat-select>
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['state'].hasError('required') &&
+                form.controls['state'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              State required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="12.5" fxFlex.xs="100" class="width-100">
+          <mat-form-field floatLabel="always" class="width-100">
+            <input
+              required
+              matInput
+              placeholder="Zip Code"
+              formControlName="zip"
+              maxlength="5"
+              minlength="5"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              digitOnly
+              (blur)="saveToState()"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                !form.controls['zip'].valid && form.controls['zip'].touched
+              "
+            >
+              <mat-icon>warning</mat-icon>
+              <span *ngIf="form.hasError('required', 'zip'); else otherInvalid"
+                >Zip code required</span
+              >
+              <ng-template #otherInvalid>
+                <span
+                  >Zip code must be a number and length must be 5
+                  characters</span
+                >
+              </ng-template>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="25" fxFlex.xs="100" class="width-100">
+          <mat-form-field fxFlexFill floatLabel="always" class="width-100">
+            <mat-select
+              required
+              formControlName="maxCommuteDistance"
+              placeholder="Commute Distance"
+              (selectionChange)="saveToState($event)"
+            >
+              <mat-option
+                *ngFor="let distance of commuteDistance"
+                [value]="distance.value"
+                >{{ commuteDistanceNumbers[distance.description] }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div class="gradient-bar" fxHide.xs></div>
+      </div>
+      <div
+        fxFlex="100"
+        fxFill
+        fxLayout="column"
+        class="width-100"
+      >
+        <div fxLayout="column" fxFlex="100" class="width-100">
+          <ng-container formArrayName="rates" *ngIf="form.get('rates')">
+            <ng-container *ngFor="let rate of rates.controls; let i = index; last as isLastRate">
+              <div
+                fxLayout="row wrap"
+                fxFlex="100"
+                fxFill
+                [formGroupName]="i"
+                fxLayoutAlign="start center"
+                fxLayoutGap="20px"
+                fxLayout.xs="column"
+              >
+                <div
+                  fxLayout="column"
+                  fxFlex="50"
+                  fxFlex.xs="100"
+                  class="width-100"
+                >
+                  <mat-form-field floatLabel="always" class="width-100">
+                    <mat-select
+                      formControlName="jobTitleId"
+                      placeholder="Title"
+                      (blur)="!rateInvalid(i) && saveRate(i)"
+                      required
+                    >
+                      <mat-option
+                        *ngFor="let job of jobsArray"
+                        [value]="job.id"
+                      >
+                        {{ job.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div
+                  fxLayout="column"
+                  fxFlex="20"
+                  fxFlex.xs="100"
+                  class="width-100"
+                >
+                  <div class="hlt-form-field-label-tooltip width-100">
+                    Hourly rate *
+                    <button [hellotempTooltip]="rateTooltipTmpl" [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'">
+                      <span class="hlt-tooltip-info"></span>
+                    </button>
+                  </div>
+                  <mat-form-field
+                    floatLabel="always"
+                    class="hlt-form-field-tooltip"
+                  >
+                    <input
+                      matInput
+                      formControlName="rate"
+                      (blur)="!rateInvalid(i) && saveRate(i)"
+                      required
+                      type='text' mask="separator.2" thousandSeparator="," prefix="$" separatorLimit="100"
+                    />
+                  </mat-form-field>
+                </div>
+                <!-- <div fxLayout="column" fxFlex="10">
+                                    <button mat-icon-button color="primary" aria-label="Save rate" (click)="saveRate(i)" [disabled]="rateInvalid(i)">
+                                        <mat-icon>save</mat-icon>
+                                    </button>
+                                </div> -->
+                <div fxLayout="row" fxFlex="20" fxFlex.xs="100">
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    aria-label="Delete rate"
+                    (click)="deleteRate(i)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button
+                    *ngIf="isLastRate"
+                    mat-button
+                    color="primary"
+                    aria-label="Add new rate"
+                    (click)="addNewRate()"
+                  >
+                    Add Job Title
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div
+          fxLayout="column"
+          fxFlex="100"
+          fxLayoutAlign="center center"
+        >
+          <div fxLayout="row" fxLayoutAlign="center start">
+            <input
+              style="display: none"
+              type="file"
+              (change)="onFileChanged($event)"
+              #fileInput
+            />
+            <button
+              *ngIf="
+                !candidate || (candidate && !candidate?.resume);
+                else resumeExists
+              "
+              mat-button
+              color="primary"
+              aria-label="upload resume"
+              (click)="fileInput.click()"
+            >
+              Upload Resume
+            </button>
+            <ng-template #resumeExists>
+              <div fxLayout="column">
+                <h6 class="highlight">Resume</h6>
+                <a target="_blank" [href]="candidate?.resume">
+                  <img src="/assets/images/pdf.png" />
+                </a>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <button
+                    mat-icon-button
+                    aria-label="remove resume"
+                    (click)="removeResume()"
+                    color="warn"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    aria-label="upload resume"
+                    (click)="fileInput.click()"
+                  >
+                    <mat-icon>create</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div class="gradient-bar"></div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxFill fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlexFill>
+          <div class="hlt-form-field-label-tooltip">
+            BIO *
+            <button
+              hellotempTooltip="The BIO section should be used to briefly describe your capabilities and what type of engagement best suits you."
+              [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'"
+            >
+              <span class="hlt-tooltip-info"></span>
+            </button>
+          </div>
+          <mat-form-field
+            class="fullwidthfield hlt-form-field-tooltip"
+            floatLabel="always"
+          >
+            <textarea
+              required
+              formControlName="bio"
+              matInput
+              [maxLength]="500"
+              (blur)="saveToState()"
+            ></textarea>
+          </mat-form-field>
+          <mat-hint
+            >Characters remaining:
+            {{
+              500 -
+                ((form.controls['bio'].value &&
+                  form.controls['bio'].value.length) ||
+                  0)
+            }}</mat-hint
+          >
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutAlign="space-between center"
+      >
+<!--        <button-->
+<!--          mat-raised-button-->
+<!--          color="primary"-->
+<!--          (click)="submitCandidate()"-->
+<!--          [disabled]="!isValid || form.invalid"-->
+<!--        >-->
+<!--          Save & Close-->
+<!--        </button>-->
+        <span>&nbsp;</span>
+        <button
+          mat-raised-button
+          (click)="next()"
+          color="primary"
+        >
+          Next
+        </button>
+      </div>
+      <div></div>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="center center">
+      <hellotemp-loading [fillContainer]="true"></hellotemp-loading>
+    </div>
+  </ng-template>
+</div>
+<ng-template #rateTooltipTmpl>
+  Hello Temp Suggests your rate should be 10% to 20% greater than your current
+  staffing agency rate. However, you may ask for whatever rate you feel is
+  relevant for your skills and experience.
+  <br />
+  * All rates are recorded as W2 Hourly.
+  <br />
+  * 1099 placements are not allowed through Hello Temp Inc.
+</ng-template>

@@ -1,0 +1,85 @@
+<mat-toolbar fxLayout="row" fxHide.xs>
+  <div
+    fxLayout="row"
+    fxLayoutGap="60px"
+    fxFlexFill
+    fxLayoutAlign="space-between center"
+  >
+    <div fxLayout="row" fxLayoutAlign="center start">
+      <div class="toolbar-logo">
+        <img src="./assets/hellotemp-smalllogo.png" alt="logo" />
+      </div>
+    </div>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="center end"
+      fxLayoutAlign.xs="center center"
+    >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-around center"
+        fxLayoutGap="60px"
+        fxLayoutGap.xs="15px"
+        fxLayoutGap.md="20px"
+        fxLayoutGap.sm="15px"
+      >
+        <h4
+          class="clickable"
+          routerLinkActive="primary"
+          routerLink="/dashboard"
+        >
+          Dashboard
+        </h4>
+        <h4 class="clickable" routerLinkActive="primary" routerLink="/messages">
+          Messages
+        </h4>
+        <h4 class="clickable" routerLinkActive="primary" routerLink="/profile">
+          Profile
+        </h4>
+        <h4 class="clickable" (click)="logout()">Logout</h4>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+<mat-toolbar fxLayout="column" class="main-toolbar" fxShow.xs fxHide>
+  <div
+    fxLayout="row"
+    fxLayoutGap="25px"
+    fxFlexFill
+    fxLayoutAlign="center center"
+  >
+    <mat-icon
+      class="clickable"
+      routerLinkActive="primary"
+      routerLink="/dashboard"
+      svgIcon="hl:dashboard"
+      ></mat-icon
+    >
+    <mat-icon
+      class="clickable"
+      routerLinkActive="primary"
+      routerLink="/messages/offers"
+      svgIcon="hl:hand"
+      ></mat-icon
+    >
+    <mat-icon
+      class="clickable"
+      routerLinkActive="primary"
+      routerLink="/messages/conversation"
+      svgIcon="hl:message"
+    ></mat-icon
+    >
+    <mat-icon
+      class="clickable"
+      routerLinkActive="primary"
+      routerLink="/profile"
+      svgIcon="hl:user"
+      ></mat-icon
+    >
+  </div>
+</mat-toolbar>
+<div class="gradient-bar taller"></div>
+<ng-container *ngIf="tokenLoaded">
+  <router-outlet></router-outlet>
+</ng-container>

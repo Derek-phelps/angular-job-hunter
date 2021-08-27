@@ -1,0 +1,9 @@
+<hellotemp-profile
+    *ngIf="candidate"
+    [candidate]="candidate"
+    [jobTitles]="jobTitles"
+    [dictionary]="dictionary"
+    [isEmployer]="false"
+    reviewRoute="/reviews"
+    (remind)="remindReviewer($event)"
+></hellotemp-profile>

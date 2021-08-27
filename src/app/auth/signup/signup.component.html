@@ -1,0 +1,165 @@
+<div class="wrapper" fxFlexFill fxLayout="row">
+  <div
+    fxFlex="40"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="50px"
+    class="primary-background"
+    fxFlex.xs="100"
+    fxLayoutGap.xs="15px"
+  >
+    <h3 class="login-title white">Already have an account?</h3>
+    <button class="btn-submit btn-sign btn-sign-invert" mat-stroked-button (click)="goBack()">Sign in</button>
+  </div>
+  <div
+    fxFlex="60"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="50px"
+    fxFlex.xs="100"
+    fxLayoutGap.xs="15px"
+  >
+    <div class="full-logo-container">
+      <img src="/assets/hellotemp-fulllogo.png" />
+    </div>
+    <form [formGroup]="form" class="sign-up-form">
+      <div fxLayout="column" fxFlex="100" fxLayoutGap="10px">
+        <div
+          class="hl-inline-form-field"
+          fxLayout="row"
+          fxLayout.xs="column"
+        >
+          <mat-form-field fxFlex="50" fxFlex.xs="100" class="width-100">
+            <input
+              matInput
+              placeholder="First name"
+              formControlName="firstName"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['firstName'].hasError('required') &&
+                form.controls['firstName'].touched
+              "
+            >
+              <p class="error">
+                <mat-icon class="mr-1">warning</mat-icon>
+                First name is required
+              </p>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="50" fxFlex.xs="100" class="width-100">
+            <input
+              matInput
+              placeholder="Last name"
+              formControlName="lastName"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.controls['lastName'].hasError('required') &&
+                form.controls['lastName'].touched
+              "
+            >
+              <p class="error">
+                <mat-icon class="mr-1">warning</mat-icon>
+                Last name is required
+              </p>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+          <mat-form-field fxFlex="100">
+            <input matInput placeholder="Email" formControlName="email" />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                (form.controls['email'].hasError('required') &&
+                  form.controls['email'].touched) ||
+                (form.controls['email'].invalid &&
+                  form.controls['email'].touched)
+              "
+            >
+              <p class="error">
+                <mat-icon class="mr-1">warning</mat-icon>
+                Email is required
+              </p>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+          <mat-form-field fxFlex="100">
+            <input
+              matInput
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex="100" *ngIf="
+                form.controls['password'].touched &&
+                form.controls['password'].invalid
+              ">
+          <mat-error class="mat-caption mat-text-warn">
+            <p class="error">
+              <mat-icon class="mr-1">warning</mat-icon>
+              Password must be between 8 and 25 characters and contain
+              letters, numbers and at least 1 special character
+            </p>
+          </mat-error>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+          <mat-form-field fxFlex="100">
+            <input
+              matInput
+              type="password"
+              placeholder="Confirm password"
+              formControlName="confirm"
+            />
+            <mat-error
+              class="mat-caption mat-text-warn"
+              *ngIf="
+                form.hasError('passwordMismatch') &&
+                form.controls['confirm'].invalid &&
+                form.controls['confirm'].touched
+              "
+            >
+              <p class="error">
+                <mat-icon class="mr-1">warning</mat-icon>
+                Passwords must match
+              </p>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxLayoutAlign="center start">
+          <mat-checkbox color="primary" formControlName="conditionsCheck" class="checkbox">
+            <p>I have read and agreed to the Hello Temp</p>
+            <a
+              href="https://www.hellotemp.com/terms-and-conditions"
+              target="_blank"
+              >Terms of Service</a
+            >
+            and
+            <a href="https://www.hellotemp.com/privacy-policy" target="_blank"
+              >Privacy Policy</a
+            >
+          </mat-checkbox>
+        </div>
+      </div>
+    </form>
+    <div class="justify-around">
+      <button
+        class="btn-sign"
+        mat-raised-button
+        color="primary"
+        (click)="register()"
+        [disabled]="
+          form.invalid || form.controls['conditionsCheck'].value === false
+        "
+      >
+        Sign up
+      </button>
+    </div>
+  </div>
+</div>

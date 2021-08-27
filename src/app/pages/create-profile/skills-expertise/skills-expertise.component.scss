@@ -1,0 +1,19 @@
+.component-container + * {
+    flex: 1 1 auto; 
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%; 
+}
+
+h6 {
+    line-height: 18px;
+}
+
+.header {
+    min-height: 74.5px !important;
+
+    &.short {
+        min-height: 54.5px !important;
+    }
+}

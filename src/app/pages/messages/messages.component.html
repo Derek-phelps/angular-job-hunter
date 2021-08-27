@@ -1,0 +1,38 @@
+<mat-drawer-container [autosize]="!isMobile">
+    <mat-drawer mode="side" [opened]="showNav"  [style.width]="isMobile ? '100vw' : null">
+      <ng-container *ngIf="pageGroup === 'all' || pageGroup === 'conversations'">
+        <div class="app-padding-vertical">
+            <h2>Conversations</h2>
+            <ng-container *ngIf="conversations && jobTitles && companies">
+                <div class="app-padding app-padding-vertical-half" *ngFor="let conversation of conversations; let i = index; trackBy:trackById">
+                    <hellotemp-candidate-card-small
+                        [opportunity]="conversation.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToConversation(conversation)"
+                    ></hellotemp-candidate-card-small>
+                </div>
+            </ng-container>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="pageGroup === 'all' || pageGroup === 'offers'">
+        <h2>Offers</h2>
+        <div class="app-padding app-padding-vertical-half" *ngFor="let o of offers; let i = index; trackBy:trackById">
+            <hellotemp-candidate-card-small
+                [opportunity]="o.opportunity"
+                [jobTitles]="jobTitles"
+                [companies]="companies"
+                [isJob]="true"
+                (click)="navigateToOffer(o)"
+            ></hellotemp-candidate-card-small>
+        </div>
+      </ng-container>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div *ngIf="isMobile">
+          <button mat-button (click)="goBack()"><mat-icon>arrow_back</mat-icon> Back</button>
+        </div>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,117 @@
+<div fxLayout="column" fxLayoutAlign="space-between center" *ngIf="!isLoading; else loading">
+    <div class="title-row" fxLayout="row" fxFlex="10">
+        <div fxLayout="column" fxFlex="15" fxLayoutAlign="center center"></div>
+        <div fxLayout="column" fxFlex="70" fxLayoutAlign="center center">
+            <h1>Your Job Dashboard</h1>
+        </div>
+        <div fxLayout="column" fxFlex="15" fxLayoutAlign="center center"></div>
+    </div>
+    <div class="horizontal-scroll" fxFlexFill *ngIf="!noJobs; else emptyState">
+        <div class="bottom-margin" fxLayout="row">
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <h5>Interview Requested</h5>
+                    <hellotemp-candidate-card-small
+                        *ngFor="let interview of interviewStatus.interviewRequested"
+                        [opportunity]="interview.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToOpportunity(interview)"
+                    >
+                    </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <h5>Interview Accepted</h5>
+                    <hellotemp-candidate-card-small
+                        *ngFor="let interview of interviewStatus.interviewAccepted"
+                        [opportunity]="interview.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToOpportunity(interview)"
+                    >
+                    </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+              <h5>Interview Rejected</h5>
+              <hellotemp-candidate-card-small
+                *ngFor="let interview of interviewStatus.interviewRejected"
+                [opportunity]="interview.opportunity"
+                [jobTitles]="jobTitles"
+                [companies]="companies"
+                [isJob]="true"
+              >
+              </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <h5>Interview Completed</h5>
+                    <hellotemp-candidate-card-small
+                        *ngFor="let interview of interviewStatus.interviewCompleted"
+                        [opportunity]="interview.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToOpportunity(interview)"
+                    >
+                    </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <h5>Job Offered</h5>
+                    <hellotemp-candidate-card-small
+                        *ngFor="let interview of interviewStatus.jobOffered"
+                        [opportunity]="interview.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToOpportunity(interview)"
+                    >
+                    </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <h5>Offer Accepted</h5>
+                    <hellotemp-candidate-card-small
+                        *ngFor="let interview of interviewStatus.offerAccepted"
+                        [opportunity]="interview.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToOpportunity(interview)"
+                    >
+                    </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+              <h5>Offer Rejected</h5>
+              <hellotemp-candidate-card-small
+                *ngFor="let interview of interviewStatus.offerDeclined"
+                [opportunity]="interview.opportunity"
+                [jobTitles]="jobTitles"
+                [companies]="companies"
+                [isJob]="true"
+                (handleClick)="navigateToOpportunity(interview)"
+              >
+              </hellotemp-candidate-card-small>
+            </div>
+            <div class="border-right adjusted-height" fxLayout="column" fxFlex="266px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <h5>Active</h5>
+                    <hellotemp-candidate-card-small
+                        *ngFor="let interview of interviewStatus.active"
+                        [opportunity]="interview.opportunity"
+                        [jobTitles]="jobTitles"
+                        [companies]="companies"
+                        [isJob]="true"
+                        (handleClick)="navigateToOpportunity(interview)"
+                    >
+                    </hellotemp-candidate-card-small>
+            </div>
+        </div>
+    </div>
+    <ng-template #emptyState>
+        <div class="msg-no-item" fxLayout="row" fxFlexFill fxLayoutAlign="center center">
+            <p>New Jobs will appear here when a client requests an interview.</p>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #loading>
+    <hellotemp-loading [fillContainer]="true"></hellotemp-loading>
+</ng-template>

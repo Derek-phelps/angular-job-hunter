@@ -1,0 +1,11 @@
+.conversation-wrapper {
+  padding-bottom: 100px;
+  @media screen and (min-width: 600px) {
+    padding-bottom: 75px;
+  }
+}
+.reply-form {
+  position: sticky;
+  bottom: 0;
+  background: #fafafa;
+}

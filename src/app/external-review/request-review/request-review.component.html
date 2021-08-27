@@ -1,0 +1,58 @@
+<mat-toolbar fxLayout="column">
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="space-between center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="toolbar-logo">
+                <img src="/assets/hellotemp-smalllogo.png">
+            </div>
+        </div>
+    </div>
+</mat-toolbar>
+<div class="gradient-bar taller"></div>
+<ng-container *ngIf="submitting; else notSubmitting">
+    <hellotemp-loading [fillContainer]="true"></hellotemp-loading>
+</ng-container>
+<ng-template #notSubmitting>
+    <div fxLayout="column" fxFlexFill fxLayoutGap="50px" fxLayoutGap.lt-sm="10px" *ngIf="candidate">
+        <div fxLayout="row" fxFlex="20" fxFlex.lt-sm="30" fxLayoutAlign="center center">
+            <h1>Please write a review for {{candidate.name}}</h1>
+        </div>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxFlexFill fxLayoutGap="20px">
+            <div fxLayout="column" fxFlex="2"></div>
+            <div fxLayout="column" fxFlex="25" fxFlex.lt-sm="100" fxLayoutAlign="start center" fxLayoutGap="10px" class="app-padding-horizontal">
+                <img class="medium-picture" *ngIf="candidate && candidate.headshot; else default" [src]="candidate.headshot">
+                <ng-template #default>
+                    <img class="medium-picture" src="/assets/images/defaultprofilepic.png">
+                </ng-template>
+                <h2>{{candidate.name}}</h2>
+                <hellotemp-icon-info
+                    imageUrl="/assets/icon-location.png"
+                    [text]="candidate.location"
+                ></hellotemp-icon-info>
+                <p>{{candidate.bio}}</p>
+            </div>
+            <div fxLayout="column" fxFlex="60" [formGroup]="form" fxLayoutGap="20px" class="app-padding-horizontal" *ngIf="status === 0; else alreadyReviewed">
+                <hellotemp-select-stars
+                    [isEditable]="true"
+                    (starsChange)="starsChange($event)"
+                    [stars]="stars"
+                ></hellotemp-select-stars>
+                <mat-form-field>
+                    <input required matInput placeholder="Highlight" formControlName="title">
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea required matInput placeholder="Details" formControlName="body"></textarea>
+                </mat-form-field>
+                <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="15px">
+                    <!-- <button mat-raised-button color="warn">Decline</button> -->
+                    <button mat-raised-button color="primary" (click)="submit()" [disabled]="form.valid && stars > 0 ? false : true">Submit</button>
+                </div>
+            </div>
+            <div fxLayout="column" fxFlex="5"></div>
+            <ng-template #alreadyReviewed>
+                <div fxLayout="column" fxFlex="50" flexFill="50" fxLayoutAlign="start center">
+                    <h1>Thank you for your review!</h1>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,14 @@
+<div fxLayout="row" fxFlexFill fxLayoutGap="20px">
+    <div fxLayout="column" fxFlex="15" fxLayoutAlign="start center">
+        <hellotemp-back-button></hellotemp-back-button>
+    </div>
+    <div fxLayout="column" fxFlex="70" fxLayoutAlign="start start" fxLayoutGap="30px" *ngIf="candidate">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <h1>Your Reviews ({{candidate.reviews && candidate.reviews.length}})</h1>
+        </div>
+        <div fxLayout="row" *ngFor="let review of reviews">
+            <hellotemp-review [review]="review"></hellotemp-review>
+        </div>
+    </div>
+    <div fxLayout="column"></div>
+</div>

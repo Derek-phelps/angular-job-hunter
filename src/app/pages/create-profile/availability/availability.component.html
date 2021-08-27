@@ -1,0 +1,182 @@
+<div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
+  <ng-container *ngIf="isLoading; else loaded">
+    <div fxLayout="column" fxFlexFill fxLayoutAlign="center center">
+      <hellotemp-loading [fillContainer]="true"></hellotemp-loading>
+    </div>
+  </ng-container>
+  <ng-template #loaded>
+    <div [formGroup]="form" fxLayout="column" fxFlexFill fxLayoutGap="30px">
+      <div fxLayout="row">
+        <div
+          fxLayout="column"
+          fxLayoutGap="5px"
+          fxLayout.lt-lg="row"
+          fxFlex="100"
+          fxLayoutAlign="space-between center"
+        >
+          <div fxLayout="row">
+            <div class="hlt-form-field-label-tooltip">
+              Flex Schedule
+              <button [hellotempTooltip]="flexSchedule" [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'">
+                <span class="hlt-tooltip-info"></span>
+              </button>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="5px">
+            <p>No</p>
+            <mat-slide-toggle
+              formControlName="hasFlexSchedule"
+              [checked]="form.get('hasFlexSchedule')?.value"
+            ></mat-slide-toggle>
+            <p>Yes</p>
+          </div>
+        </div>
+      </div>
+      <div
+        fxLayout="row wrap"
+        fxLayoutGap="10px"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between center"
+      >
+        <mat-form-field floatLabel="always" class="flex-1">
+          <input
+            formControlName="nextAvailableDate"
+            matInput
+            [matDatepicker]="startDatePicker"
+            placeholder="Next Available Date"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field floatLabel="always" class="flex-1">
+          <input
+            formControlName="availableUntil"
+            [matDatepicker]="endDatePicker"
+            matInput
+            placeholder="Available Until"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="endDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+        <div fxFlex.xs="100" class="flex-1">
+          <div class="hlt-form-field-label-tooltip tooltip-for-select">
+            remote work
+            <button [hellotempTooltip]="remoteWork" [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'">
+              <span class="hlt-tooltip-info"></span>
+            </button>
+          </div>
+          <mat-form-field
+            floatLabel="always"
+            class="hlt-form-field-tooltip flex-1"
+            fxFill
+          >
+            <mat-select
+              formControlName="willWorkRemote"
+              [value]="willWorkRemote.value"
+            >
+              <mat-option [value]="true">Yes</mat-option>
+              <mat-option [value]="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="row wrap"
+        fxLayoutGap="10px"
+        fxLayout.xs="column"
+        fxLayoutAlign="space-between center"
+      >
+        <mat-form-field floatLabel="always" class="flex-1">
+          <mat-select
+            formControlName="minEngagementDurationWeeks"
+            matInput
+            placeholder="Min Duration in Weeks"
+          >
+            <mat-option value="No preference">No preference</mat-option>
+            <mat-option [value]="number" *ngFor="let number of weeks">{{
+              number
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always" class="flex-1">
+          <mat-select
+            formControlName="maxEngagementDurationWeeks"
+            matInput
+            placeholder="Max Duration in Weeks"
+          >
+            <mat-option value="No preference">No preference</mat-option>
+            <mat-option [value]="number" *ngFor="let number of weeks">{{
+              number
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always" class="flex-1">
+          <mat-select
+            formControlName="maxHoursPerWeek"
+            placeholder="max hrs/week"
+            [value]="maxHoursPerWeek.value"
+          >
+            <mat-option value="No preference">No preference</mat-option>
+            <mat-option [value]="number" *ngFor="let number of hours">{{
+              number
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <div class="width-100">
+          <div class="hlt-form-field-label-tooltip">
+            daily availability
+            <button [hellotempTooltip]="dailyAvailability" [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'">
+              <span class="hlt-tooltip-info"></span>
+            </button>
+          </div>
+          <mat-form-field
+            class="fullwidthfield hlt-form-field-tooltip"
+            floatLabel="always"
+          >
+            <textarea formControlName="scheduleDescription" matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex fxLayoutAlign="space-between center" fxLayoutGap="30px">
+<!--        <button-->
+<!--          mat-raised-button-->
+<!--          color="primary"-->
+<!--          (click)="submitCandidate()"-->
+<!--          [disabled]="!isValid"-->
+<!--        >-->
+<!--          Save & Close-->
+<!--        </button>-->
+        <span>&nbsp;</span>
+        <button mat-raised-button (click)="next()" color="primary">Next</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #flexSchedule>
+  Mark Flex schedule to "Yes" if you cannot work a standard 8:00 to 5:00 work
+  schedule.
+  <br />
+  In the "Daily Availability" section below please indicate any alternate
+  schedule requests including available start and stop times.
+</ng-template>
+
+<ng-template #remoteWork>
+  Please select "Yes" if you can work from home or a remote office and would
+  like to be considered by employers seeking out remote temporary professionals.
+</ng-template>
+
+<ng-template #dailyAvailability>
+  Please describe your daily work schedule in this section if you cannot work a
+  standard 8:00 to 5:00 scheduled Monday through Friday.
+  <br />
+  Include available times and days and your required start and stop times.
+</ng-template>

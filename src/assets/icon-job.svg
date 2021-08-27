@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.953" height="24.954" viewBox="0 0 24.953 24.954">
+  <g id="Job-Ring" transform="translate(-1.093 469.907)">
+    <g id="Ring" transform="translate(2.094 -468.907)">
+      <path id="Ring-2" data-name="Ring" d="M17.75,21.089A11.433,11.433,0,1,0,14.334,22.6" fill="none" stroke="#2140c7" stroke-width="2"/>
+    </g>
+    <g id="Job">
+      <path id="Stroke-1" d="M6.005,2.172V.875H9.695v1.3" transform="translate(5.23 -462.875)" fill="none" stroke="#42ff47" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.75" fill-rule="evenodd"/>
+      <path id="Stroke-3" d="M9.692,10.481h1.343V3.931H.876v6.549H7.8" transform="translate(7.125 -464.004)" fill="none" stroke="#2140c7" stroke-width="1.75" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,75 @@
+.wrapper {
+  flex-wrap: wrap-reverse;
+  min-height: 100vh !important;
+  .login-title {
+    text-align: center;
+    font-size: 16px;
+    @media (min-width: 599px) {
+      font-size: 36px;
+    }
+  }
+  .full-logo-container img {
+    display: none;
+    @media (min-width: 599px) {
+      display: block;
+    }
+  }
+  .sign-up-form {
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 480px;
+  }
+  .checkbox {
+    max-width: 100%;
+    label {
+      max-width: 100%;
+      white-space: normal;
+    }
+  }
+  mat-form-field {
+    font-size: 14px;
+    @media (min-width: 599px) {
+      font-size: 16px;
+    }
+  }
+  .btn-sign-invert {
+    background-color: white;
+    color: black;
+  }
+  .btn-sign {
+    padding: 0 24px;
+  }
+
+  .hl-inline-form-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    min-height: 160px;
+    @media (min-width: 600px) {
+      flex-direction: row;
+      min-height: auto;
+      margin-left: -5px;
+      margin-right: -5px;
+    }
+
+    .mat-form-field {
+      @media (max-width: 599px) {
+        margin-bottom: 16px;
+      }
+
+      @media (min-width: 600px) {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .error {
+    .mat-icon {
+      width: 1em;
+      height: 1em;
+      font-size: inherit;
+      vertical-align: baseline;
+    }
+  }
+}

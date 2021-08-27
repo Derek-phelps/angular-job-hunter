@@ -1,0 +1,31 @@
+<div fxLayout="column" fxFlexFill class="conversation-wrapper">
+    <ng-container *ngIf="interviewId; else noConversation">
+        <div *ngIf="participants?.interview" class="title">
+            <h1 class="dark-gray thread-title">{{participants.interview?.opportunity?.company?.name}}</h1>
+        </div>
+        <div fxFlex="1 1 auto"></div>
+        <div *ngIf="participants?.messages" fxLayout="row" fxLayoutAlign="center center" class="app-padding-horizontal">
+            <hellotemp-thread
+                fxLayoutAlign="center center"
+                class="width-100"
+                [messages]="participants.messages"
+                [user]="participants.user"
+            ></hellotemp-thread>
+        </div>
+        <form class="reply-form" [formGroup]="form" fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="column" class="input-container width-100" fxLayoutAlign="center center">
+                <div fxLayout="row" class="width-100 app-padding-horizontal" fxLayoutAlign="center center">
+                    <mat-form-field fxFlex="80">
+                        <textarea matInput formControlName="text"></textarea>
+                    </mat-form-field>
+                    <button class="medium" mat-flat-button color="primary" type="submit" (click)="sendMessage($event)">Send</button>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+    <ng-template #noConversation>
+        <div fxFlexFill fxLayoutAlign="center center">
+            <h1>No Conversation Selected</h1>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,265 @@
+<div fxLayout="column" fxLayoutGap="30px" fxFlex="100">
+  <!-- Skills -->
+  <ng-container *ngIf="isLoading; else loaded">
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="center center">
+      <hellotemp-loading [fillContainer]="true"></hellotemp-loading>
+    </div>
+  </ng-container>
+  <ng-template #loaded>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayout.xs="column">
+      <div
+        fxLayout="column"
+        fxFlex="35"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <hellotemp-select-skill
+          header="Skills"
+          [maxCount]="500"
+          search="Search skills"
+          [items]="skillOptions"
+          [selectedItems]="selectedSkills"
+          (itemSelected)="skillSelected($event)"
+        >
+        </hellotemp-select-skill>
+      </div>
+      <div
+        fxLayout="column"
+        fxFlex="65"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <div
+          class="header"
+          fxLayout="row"
+          fxFlexFill
+          fxLayoutAlign="start center"
+          fxLayoutGap="20px"
+          fxLayoutGap.xs="15px"
+        >
+          <div fxFlex="40px" fxHide.xs></div>
+          <div
+            fxLayout="column"
+            fxFlex="30"
+            fxLayoutAlign="start start"
+            fxFlex.xs="100"
+          >
+            <h5>Selected Skills</h5>
+          </div>
+          <div
+            fxLayout="column"
+            fxFlex="50"
+            fxLayoutAlign="start start"
+            fxHide.xs
+          >
+            <div fxLayout="row" fxFlexFill fxLayoutAlign="space-between start">
+              <div fxLayout="column" fxFlex="33">
+                <h6 class="highlight">Beginner</h6>
+              </div>
+              <div fxLayout="column" fxFlex="33">
+                <h6 class="highlight text-center">Intermediate</h6>
+              </div>
+              <div fxLayout="column" fxFlex="33">
+                <h6 class="highlight text-end">Advanced</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hellotemp-selected-skill
+          class="width-100"
+          [requiredField]="false"
+          (updateDesiredAbility)="desiredAbilityUpdateSkills($event)"
+          (skillRemoved)="skillUnselected($event)"
+          slider="true"
+          [selectedSkills]="selectedSkills"
+          [showSliderLabel]="responsiveService.isMobile$ | async"
+        >
+        </hellotemp-selected-skill>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill>
+      <hellotemp-green-divider fxFlexFill></hellotemp-green-divider>
+    </div>
+    <!-- Software -->
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayout.xs="column">
+      <div
+        fxLayout="column"
+        fxFlex="35"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <hellotemp-select-skill
+          header="Software"
+          [maxCount]="500"
+          search="Search software"
+          [items]="softwareOptions"
+          [selectedItems]="selectedSoftware"
+          (itemSelected)="softwareSelected($event)"
+        >
+        </hellotemp-select-skill>
+      </div>
+      <div
+        fxLayout="column"
+        fxFlex="65"
+        fxLayoutAlign="start start"
+        fxLayoutGap="10px"
+        fxFlex.xs="100"
+      >
+        <div
+          class="header"
+          fxLayout="row"
+          fxFlexFill
+          fxLayoutAlign="start center"
+          fxLayoutGap="20px"
+          fxLayoutGap.xs="15px"
+        >
+          <div fxFlex="40px" fxHide.xs></div>
+          <div fxLayout="column" fxFlex="30" fxLayoutAlign="start start" fxFlex.xs="100">
+            <h5>Selected Software</h5>
+          </div>
+          <div fxLayout="column" fxFlex="50" fxLayoutAlign="start start" fxHide.xs>
+            <div fxLayout="row" fxFlexFill fxLayoutAlign="space-between start">
+              <div fxLayout="column" fxFlex="33">
+                <h6 class="highlight">Beginner</h6>
+              </div>
+              <div fxLayout="column" fxFlex="33">
+                <h6 class="highlight text-center">Intermediate</h6>
+              </div>
+              <div fxLayout="column" fxFlex="33">
+                <h6 class="highlight text-end">Advanced</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hellotemp-selected-skill
+          class="width-100"
+          [requiredField]="false"
+          (updateDesiredAbility)="desiredAbilityUpdateSoftware($event)"
+          (skillRemoved)="softwareUnselected($event)"
+          [slider]="true"
+          header="Selected Software"
+          [selectedSkills]="selectedSoftware"
+          [showSliderLabel]="responsiveService.isMobile$ | async"
+        >
+        </hellotemp-selected-skill>
+      </div>
+    </div>
+    <div fxLayout="row" fxFill>
+      <hellotemp-green-divider fxFill></hellotemp-green-divider>
+    </div>
+    <!-- Industries -->
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayout.xs="column">
+      <div
+        fxLayout="column"
+        fxFlex="35"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <hellotemp-select-skill
+          header="Industries"
+          [maxCount]="500"
+          [items]="industryOptions"
+          [selectedItems]="selectedIndustries"
+          (itemSelected)="industrySelected($event)"
+        >
+        </hellotemp-select-skill>
+      </div>
+      <div
+        fxLayout="column"
+        fxFlex="65"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <div
+          class="header short"
+          fxLayout="row"
+          fxFlexFill
+          fxLayoutAlign="start center"
+        >
+          <div fxFlex="40px" fxHide.xs></div>
+          <div fxLayout="column" fxFlex="100" fxLayoutAlign="start start">
+            <h5>Selected Industries</h5>
+          </div>
+        </div>
+        <hellotemp-selected-skill
+          class="width-100"
+          [requiredField]="false"
+          (skillRemoved)="industryUnselected($event)"
+          header="Selected Industries"
+          [selectedSkills]="selectedIndustries"
+        >
+        </hellotemp-selected-skill>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <hellotemp-green-divider fxFill></hellotemp-green-divider>
+    </div>
+    <!-- Certifications -->
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayout.xs="column">
+      <div
+        fxLayout="column"
+        fxFlex="35"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <hellotemp-select-skill
+          header="Certifications"
+          [maxCount]="1"
+          [items]="certificationOptions"
+          [selectedItems]="selectedCertifications"
+          (itemSelected)="certificationSelected($event)"
+        >
+        </hellotemp-select-skill>
+      </div>
+      <div
+        fxLayout="column"
+        fxFlex="65"
+        fxLayoutAlign="start start"
+        fxFlex.xs="100"
+      >
+        <div
+          class="header short"
+          fxLayout="row"
+          fxFlexFill
+          fxLayoutAlign="start center"
+        >
+          <div fxFlex="40px" fxHide.xs></div>
+          <div fxLayout="column" fxFlex="100" fxLayoutAlign="start start">
+            <h5>Selected Certifications</h5>
+          </div>
+        </div>
+        <hellotemp-selected-skill
+          class="width-100"
+          [requiredField]="false"
+          (updateIsActive)="isActiveUpdate($event)"
+          (skillRemoved)="certificationUnselected($event)"
+          header="Selected Certifications"
+          [selectedSkills]="selectedCertifications"
+          [status]="true"
+        >
+        </hellotemp-selected-skill>
+      </div>
+    </div>
+    <div fxLayout="row" fxFlexFill>
+      <div fxLayout="row" fxFlex fxLayoutAlign="space-between center" fxLayoutGap="30px">
+<!--        <button-->
+<!--          mat-raised-button-->
+<!--          color="primary"-->
+<!--          (click)="submitCandidate()"-->
+<!--          [disabled]="!isValid"-->
+<!--        >-->
+<!--          Save & Close-->
+<!--        </button>-->
+        <span>&nbsp;</span>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="navigateToDescription()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+    <div></div>
+  </ng-template>
+</div>

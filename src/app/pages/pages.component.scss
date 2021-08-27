@@ -1,0 +1,23 @@
+.toolbar-logo {
+  max-height: 30px;
+  max-width: 240px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+h4 {
+  font-family: 'Roboto Slab';
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.main-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  z-index: 1000;
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.567" height="24.567" viewBox="0 0 24.567 24.567">
+  <g id="Star-Ring" transform="translate(-0.093 -0.093)">
+    <path id="Ring" d="M18.151,21.433a11.247,11.247,0,1,0-3.36,1.481" transform="translate(0.393 0.393)" fill="none" stroke="#2140c7" stroke-width="2" fill-rule="evenodd"/>
+    <path id="Star" d="M10.359,4l-1.5,4.587H4l3.93,2.835-1.5,4.587,3.93-2.835,3.93,2.835-1.5-4.587.82-.592,1.055-.76,2.056-1.483H11.86Z" transform="translate(1.946 1.946)" fill="#2140c7" fill-rule="evenodd"/>
+  </g>
+</svg>

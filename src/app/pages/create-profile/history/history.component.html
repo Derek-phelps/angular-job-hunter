@@ -1,0 +1,403 @@
+<div fxLayout="row" fxFlex="100" fxFill fxLayoutAlign="center center">
+  <ng-container *ngIf="!isLoading; else loading">
+    <div
+      [formGroup]="form"
+      fxLayout="column"
+      fxFlex="100"
+      fxFill
+      fxLayoutAlign="start start"
+      fxLayoutGap="30px"
+    >
+      <h4>Education</h4>
+      <div fxLayout="row" fxFill>
+        <div fxLayout="column" fxFill>
+          <ng-container formArrayName="degrees">
+            <ng-container
+              *ngFor="let degree of degrees.controls; let i = index"
+            >
+              <div
+                fxLayout="row"
+                fxLayout.xs="column"
+                [formGroupName]="i"
+                fxLayoutGap="30px"
+                fxLayoutAlign="start center"
+                fxLayoutGap.xs="15px"
+                fxFlexFill
+              >
+                <mat-form-field floatLabel="always" class="width-100">
+                  <input
+                    matInput
+                    placeholder="Degree name"
+                    formControlName="degreeObtained"
+                    (blur)="!degrees.controls[i].invalid && saveDegree(i)"
+                  />
+                </mat-form-field>
+                <mat-form-field floatLabel="always" class="width-100">
+                  <input
+                    matInput
+                    placeholder="Institution name"
+                    formControlName="institution"
+                    (blur)="!degrees.controls[i].invalid && saveDegree(i)"
+                  />
+                </mat-form-field>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  aria-label="Delete Degree"
+                  (click)="deleteDegree(i)"
+                  [disabled]="
+                    degrees.controls[i].controls && degrees.controls[i].value.id
+                      ? false
+                      : true
+                  "
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxFill fxLayoutAlign="center center">
+        <div class="gradient-bar"></div>
+      </div>
+      <h4>Additional Qualifications</h4>
+      <div fxLayout="row" fxFill>
+        <div fxLayout="column" fxFill>
+          <ng-container formArrayName="qualifications">
+            <ng-container
+              *ngFor="let degree of qualifications.controls; let i = index"
+            >
+              <div
+                fxLayout="row"
+                fxLayout.xs="column"
+                [formGroupName]="i"
+                fxLayoutGap="30px"
+                fxLayoutGap.xs="15px"
+                fxLayoutAlign="start center"
+                (blur)="
+                  !qualifications.controls[i].invalid && saveQualification(i)
+                "
+              >
+                <mat-form-field floatLabel="always" class="width-100">
+                  <input
+                    matInput
+                    placeholder="Qualification name"
+                    formControlName="title"
+                    (blur)="
+                      !qualifications.controls[i].invalid &&
+                        saveQualification(i)
+                    "
+                  />
+                </mat-form-field>
+                <mat-form-field floatLabel="always" class="width-100">
+                  <input
+                    matInput
+                    placeholder="Organization name"
+                    formControlName="institution"
+                    (blur)="
+                      !qualifications.controls[i].invalid &&
+                        saveQualification(i)
+                    "
+                  />
+                </mat-form-field>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  aria-label="Delete Qualification"
+                  (click)="deleteQualification(i)"
+                  [disabled]="
+                    qualifications.controls[i].controls &&
+                    qualifications.controls[i].value.id
+                      ? false
+                      : true
+                  "
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div class="gradient-bar"></div>
+      </div>
+      <div fxLayout="row">
+        <h4>
+          References
+          <button [hellotempTooltip]="referencesTmpl" [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'">
+            <span class="hlt-tooltip-info"></span>
+          </button>
+        </h4>
+      </div>
+      <ng-container formArrayName="references">
+        <ng-container *ngFor="let review of references.controls; let i = index">
+          <div
+            fxLayout="row"
+            [formGroupName]="i"
+            fxLayoutGap="5px"
+            fxLayoutAlign="start center"
+            fxFill
+          >
+            <div fxLayout="column" fxFill>
+              <div
+                fxLayout="row wrap"
+                fxLayoutAlign="start center"
+                fxLayout.xs="column"
+              >
+                <mat-form-field
+                  floatLabel="always"
+                  class="flex-1"
+                  fxFlex.xs="100"
+                >
+                  <input
+                    matInput
+                    placeholder="First Name"
+                    formControlName="firstName"
+                    (blur)="!references.controls[i].invalid && saveReference(i)"
+                  />
+                </mat-form-field>
+                <mat-form-field
+                  floatLabel="always"
+                  class="flex-1"
+                  fxFlex.xs="100"
+                >
+                  <input
+                    matInput
+                    placeholder="Last Name"
+                    formControlName="lastName"
+                    (blur)="!references.controls[i].invalid && saveReference(i)"
+                  />
+                </mat-form-field>
+                <mat-form-field
+                  floatLabel="always"
+                  class="flex-1"
+                  fxFlex.xs="100"
+                >
+                  <input
+                    matInput
+                    placeholder="Company"
+                    formControlName="company"
+                    (blur)="!references.controls[i].invalid && saveReference(i)"
+                  />
+                </mat-form-field>
+                <mat-form-field
+                  floatLabel="always"
+                  class="flex-1"
+                  fxFlex.xs="100"
+                >
+                  <input
+                    matInput
+                    placeholder="Title"
+                    formControlName="title"
+                    (blur)="!references.controls[i].invalid && saveReference(i)"
+                  />
+                </mat-form-field>
+              </div>
+              <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayout.xs="column"
+              >
+                <mat-form-field floatLabel="always" class="width-100">
+                  <input
+                    matInput
+                    placeholder="Phone"
+                    formControlName="phoneNumber"
+                    (blur)="!references.controls[i].invalid && saveReference(i)"
+                  />
+                </mat-form-field>
+                <mat-form-field
+                  floatLabel="always"
+                  fxFlex="twoColumnSpan"
+                  class="width-100"
+                >
+                  <input
+                    matInput
+                    placeholder="Email"
+                    formControlName="email"
+                    (blur)="!references.controls[i].invalid && saveReference(i)"
+                  />
+                </mat-form-field>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  aria-label="Delete Reference"
+                  (click)="deleteReference(i)"
+                  [disabled]="
+                    references.controls[i].controls &&
+                    references.controls[i].value.id
+                      ? false
+                      : true
+                  "
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div
+        fxLayout="row"
+        fxFlex="100"
+        fxFill
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div class="gradient-bar"></div>
+      </div>
+      <div fxLayout="row">
+        <h4>
+          Reviewers
+          <button [hellotempTooltip]="reviewersTmpl" [triggerBy]="(isMobile$ | async) ? 'click' : 'hover'">
+            <span class="hlt-tooltip-info"></span>
+          </button>
+        </h4>
+      </div>
+      <div fxLayout="row">
+        <div fxLayout="column">
+          <ng-container formArrayName="reviewers">
+            <ng-container
+              *ngFor="let review of reviewers.controls; let i = index"
+            >
+              <div
+                fxLayout="row"
+                [formGroupName]="i"
+                fxLayoutGap="5px"
+                fxLayoutAlign="start center"
+              >
+                <div fxLayout="column">
+                  <div fxLayout="row wrap" fxLayoutAlign="start center">
+                    <mat-form-field floatLabel="always" class="width-100">
+                      <input
+                        matInput
+                        placeholder="First Name"
+                        formControlName="firstName"
+                      />
+                    </mat-form-field>
+                    <mat-form-field floatLabel="always" class="width-100">
+                      <input
+                        matInput
+                        placeholder="Last Name"
+                        formControlName="lastName"
+                      />
+                    </mat-form-field>
+                    <mat-form-field floatLabel="always" class="width-100">
+                      <input
+                        matInput
+                        placeholder="Company"
+                        formControlName="companyName"
+                      />
+                    </mat-form-field>
+                    <mat-form-field floatLabel="always" class="width-100">
+                      <input
+                        matInput
+                        placeholder="Title"
+                        formControlName="jobTitle"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field floatLabel="always" fxFlex="twoColumnSpan">
+                      <input
+                        matInput
+                        placeholder="Email"
+                        formControlName="email"
+                      />
+                    </mat-form-field>
+                    <ng-container
+                      *ngIf="
+                        reviewers.controls[i] && reviewers.controls[i].value.id;
+                        else showSend
+                      "
+                    >
+                      <button
+                        mat-icon-button
+                        color="primary"
+                        aria-label="send email"
+                        [disabled]="reviewers.controls[i].invalid"
+                        (click)="saveReviewer(i)"
+                      >
+                        <mat-icon>save</mat-icon>
+                      </button>
+                    </ng-container>
+                    <ng-template #showSend>
+                      <button
+                        mat-icon-button
+                        color="primary"
+                        aria-label="send email"
+                        [disabled]="reviewers.controls[i].invalid"
+                        (click)="saveReviewer(i)"
+                      >
+                        <mat-icon>send</mat-icon>
+                      </button>
+                    </ng-template>
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      aria-label="Delete Reviewer"
+                      (click)="deleteReviewer(i)"
+                      [disabled]="
+                        reviewers.controls[i] && reviewers.controls[i].value.id
+                          ? false
+                          : true
+                      "
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxFill fxLayoutAlign="end center">
+        <button mat-raised-button (click)="next()" color="primary">
+          Finish
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <div fxLayout="row" fxFlexFill fxLayoutAlign="center center">
+      <hellotemp-loading [fillContainer]="true"></hellotemp-loading>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #referencesTmpl>
+  References are individuals who can speak to your character or work experience
+  and can be contacted by customers of hello temp inc.
+  <br />
+  References are viewable only by active clients of Hello Temp Inc when you come
+  up as a match for a potential project
+</ng-template>
+
+<ng-template #reviewersTmpl>
+  Reviewers are individuals whom you have worked directly for in the past,
+  either as a temporary professional or permanent employee.
+  <br />
+  <br />
+  An email will be sent to each reviewer listed asking them to complete a brief
+  review consisting of a 0-5 star rating, a job highlight, and the details of
+  the work you performed.
+  <br />
+  <br />
+  Reviews will be visible to any client of Hello Temp that matches on your
+  profile. Only the title and company of your reviewer will be viewable. Names
+  of your reviewers will not be displayed or disclosed.
+  <br />
+  <br />
+  It is highly recommended to have at least 3 completed reviews. You can have
+  multiple reviewers per company/job. The more completed reviews you receive the
+  more likely you are to receive interviews and job offers.
+</ng-template>

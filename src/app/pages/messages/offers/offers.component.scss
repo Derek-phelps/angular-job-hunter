@@ -1,0 +1,22 @@
+.container {
+  @media screen and (min-width: 600px) {
+    min-height: calc(100% - 64px - 40px);
+  }
+}
+
+button {
+    width: 160px;
+    height: 40px;
+    margin-left: 11px;
+    margin-right: 11px;
+}
+
+.grey-background {
+    background: #F0F0F0;
+}
+
+.offers-footer-actions {
+  position: sticky;
+  bottom: 0;
+  background: #fafafa;
+}

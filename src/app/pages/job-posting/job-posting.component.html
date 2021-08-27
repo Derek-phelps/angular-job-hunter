@@ -1,0 +1,216 @@
+<hellotemp-loading *ngIf="isLoading" [fillContainer]="true"></hellotemp-loading>
+<div class="job-posting-wrapper" fxLayout="column" fxLayoutGap="25px" *ngIf="!isLoading">
+    <div class="title-row" fxLayout="row" fxLayout.xs="column" fxFlex="10">
+        <div fxLayout="column" fxLayout.xs="100" fxFlex="15" fxLayoutAlign="center center">
+            <hellotemp-back-button></hellotemp-back-button>
+        </div>
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="70" fxLayoutAlign="center center">
+            <h1 class="job-title">{{jobTitles[opportunity.jobTitleId].name}}</h1>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="10" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex="15" fxFlex.xs="100" fxLayoutAlign="center center" class="app-padding-end">
+            <div class="logo-container">
+                <hellotemp-logo *ngIf="company.companyLogo" [path]="company.companyLogo"></hellotemp-logo>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="70" fxFlex.xs="100" fxLayoutAlign="center start">
+            <h4>{{company?.name}}</h4>
+        </div>
+        <div fxLayout="column" fxFlex="15" fxFlex.xs="100" fxLayoutAlign="center center">
+            <a [href]="formatUrl(company?.link)" target="_blank">{{company?.link}}</a>
+        </div>
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayout.xs="column" fxFlex="10" fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutAlign.xs="start start">
+        <div fxLayout="column" fxFlex="33.33" fxFlex.xs="100" fxLayoutAlign="center start">
+            <hellotemp-icon-info
+                imageUrl="/assets/icon-job.svg"
+                text="{{opportunity.startDate | date: 'shortDate'}} - {{opportunity.endDate | date: 'shortDate'}}"
+            ></hellotemp-icon-info>
+        </div>
+        <div fxLayout="column" fxFlex="33.33" fxFlex.xs="100" fxLayoutAlign="center start">
+            <hellotemp-icon-info
+                imageUrl="/assets/icon-location.svg"
+                [text]="opportunity.location.city + ', ' + opportunity.location.state"
+            ></hellotemp-icon-info>
+        </div>
+        <div fxLayout="column" fxFlex="33.33" fxFlex.xs="100" fxLayoutAlign="center start">
+            <hellotemp-icon-info
+                imageUrl="/assets/icon-job.svg"
+                [text]="opportunity.hoursPerWeek + ' hours/week'"
+            ></hellotemp-icon-info>
+        </div>
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="20px">
+        <div fxLayout="column" fxFlex="40" fxLayoutGap="10px">
+            <ng-container *ngIf="opportunity.skills && opportunity.skills.length > 0">
+                <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start start">
+                        <h5>Skills</h5>
+                    </div>
+<!--                    <div fxLayout="column" fxFlex="48" fxLayoutAlign="start start">-->
+<!--                        <div fxLayout="row" class="width-100" fxLayoutAlign="space-between">-->
+<!--                            <span class="skill-level">Beginner</span>-->
+<!--                            <span class="skill-level">Intermediate</span>-->
+<!--                            <span class="skill-level">Advanced</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <div fxLayout="row" *ngFor="let skill of opportunity.skills" fxLayoutGap="20px">
+                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start start">
+                        <p>{{skills[skill.skillId].name}}</p>
+                    </div>
+                    <div fxLayout="column" fxFlex="40" fxLayoutAlign="center center">
+                        <mat-slider
+                            class="width-100"
+                            disabled
+                            [max]="2"
+                            color="accent"
+                            [min]="0"
+                            [step]="1"
+                            [tickInterval]="1"
+                            [value]="skill.desiredAbility || 0"
+                        ></mat-slider>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="opportunity.industries && opportunity.industries.length > 0">
+                <div fxLayout="row">
+                    <h5>Industry Experience</h5>
+                </div>
+                <div fxLayout="row" *ngFor="let industry of opportunity.industries">
+                    <p>{{industries[industry.industryId].name}}</p>
+                </div>
+            </ng-container>
+        </div>
+        <div fxLayout="column" fxFlex="40" fxLayoutGap="10px">
+            <ng-container *ngIf="opportunity.software && opportunity.software.length > 0">
+                <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start start">
+                        <h5>Software</h5>
+                    </div>
+<!--                    <div fxLayout="column" fxFlex="48" fxLayoutAlign="start start">-->
+<!--                        <div fxLayout="row" class="width-100" fxLayoutAlign="space-between">-->
+<!--                            <span class="skill-level">Beginner</span>-->
+<!--                            <span class="skill-level">Intermediate</span>-->
+<!--                            <span class="skill-level">Advanced</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <div fxLayout="row" *ngFor="let s of opportunity.software" fxLayoutGap="20px">
+                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="start start">
+                        <p>{{software[s.softwareId].name}}</p>
+                    </div>
+                    <div fxLayout="column" fxFlex="40" fxLayoutAlign="center center">
+                        <mat-slider
+                            class="width-100"
+                            disabled
+                            [max]="2"
+                            color="accent"
+                            [min]="0"
+                            [step]="1"
+                            [tickInterval]="1"
+                            [value]="s.desiredAbility || 0"
+                        ></mat-slider>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="opportunity.certifications && opportunity.certifications.length > 0">
+                <div fxLayout="row">
+                    <h5>Certifications</h5>
+                </div>
+                <div fxLayout="row" *ngFor="let cert of opportunity.certifications">
+                    <p>{{certifications[cert.certificationId].name}}</p>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="80">
+            <div class="gradient-bar"></div>
+        </div>
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayoutAlign="center start">
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="80" fxLayoutGap="10px">
+            <div fxLayout="row">
+                <h5>Job Description</h5>
+            </div>
+            <div fxLayout="column">
+                <div class="job-description">
+                    {{opportunity.description}}
+                </div>
+                <!-- <ng-container *ngIf="!readMore; else readLess">
+                    <button mat-button color="primary" (click)="readMore = !readMore">Read more</button>
+                </ng-container> -->
+                <!-- <ng-template #readLess>
+                    <button mat-button color="primary" (click)="readMore = !readMore">Read Less</button>
+                </ng-template> -->
+            </div>
+        </div>
+        <!-- <div fxLayout="column" fxFlex="40"> -->
+            <!-- Map Goes Here -->
+        <!-- </div> -->
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="80">
+            <div class="gradient-bar"></div>
+        </div>
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayoutAlign="center start">
+        <!-- <div fxLayout="column" fxFlex="40" fxLayoutGap="10px">
+            <div fxLayout="row">
+                <h5>Documents</h5>
+            </div>
+            <div fxLayout="row">
+                <p>Documents go here</p>
+            </div>
+        </div> -->
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="80" fxLayoutGap="10px" fxLayoutAlign="start start">
+            <div fxLayout="row">
+                <h5>Required Checks</h5>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.criminalHistoryCheck">
+                <p>Criminal History Check</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.priorEmploymentVerification">
+                <p>Prior Employment Verification</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.educationVerificaiton">
+                <p>Education Verification</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.referenceCheck">
+                <p>Reference Check</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.creditBackgroundCheck">
+                <p>Credit Background Check</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.tenPanelDrugScreening">
+                <p>Ten Panel Drug Screening</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.twelvePanelDrugScreening">
+                <p>Twelve Panel Drug Screening</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.professionalLicenseCheck">
+                <p>Professional License Check</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.socialSecurityNumberTrace">
+                <p>Social Security Number Trace</p>
+            </div>
+            <div fxLayout="row" *ngIf="opportunity.sexualOffenderRegistryCheck">
+                <p>Sexual Offender Registry Check</p>
+            </div>
+        </div>
+    </div>
+    <div class="padding-content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="25px">
+        <div fxLayout="column">
+            <button mat-raised-button color="warn" (click)="rejectInterview()">Reject Interview Request</button>
+        </div>
+        <div fxLayout="column">
+            <button *ngIf="interview.status === 0; else accepted" mat-raised-button color="primary" (click)="acceptInterview()">Accept Interview Request</button>
+            <ng-template #accepted>
+                <button mat-raised-button color="primary" [disabled]="true">Interview accepted</button>
+            </ng-template>
+        </div>
+    </div>
+    <div></div>
+</div>
